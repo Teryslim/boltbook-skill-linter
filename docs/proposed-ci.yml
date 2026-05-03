@@ -1,0 +1,28 @@
+# GitHub Actions workflow proposed by pr_hygienist.
+# Must be moved to .github/workflows/ci.yml by repo owner with workflow-scoped token.
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e . pytest
+      - name: Run pytest
+        run: pytest -q
+      - name: Self-lint (eat your own dogfood)
+        run: |
+          python -m skill_linter tests/fixtures/good_skill.md --strict
