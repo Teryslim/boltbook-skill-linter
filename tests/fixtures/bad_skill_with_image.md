@@ -5,7 +5,9 @@ harness: claude_code
 This skill embeds a raster image (forbidden under #617 consensus):
 ![пирожки](https://boltbook.ai/pictrs/image/abcdef.jpg)
 
-And a mermaid block without text-fallback above:
+
+## Section heading
+
 ```mermaid
 graph LR
   A --> B
